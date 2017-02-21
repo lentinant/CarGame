@@ -9,8 +9,6 @@ namespace Assets.Scripts
         public Transform Muzzle;
         public float ShootCooldown;
 
-        public float ShotPower;
-
         private float _nextShootTime;
 
         public Collider2D Collider { get; set; }
@@ -22,7 +20,7 @@ namespace Assets.Scripts
 
             var projectile = (Transform)Instantiate(ProjectilePrefab, Muzzle.position + new Vector3(0, 0, -1), transform.rotation);
             var projectileComponent = projectile.GetComponent<Projectile>();
-            projectileComponent.Init(direction, Collider, ShotPower);
+            projectileComponent.Init(direction, Collider);
 
             _nextShootTime = Time.time + ShootCooldown;
         }
