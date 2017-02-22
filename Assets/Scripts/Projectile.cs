@@ -69,7 +69,6 @@ namespace Assets.Scripts
             {
                 var layer = coll.gameObject.layer;
                 var hit = Physics2D.Raycast(transform.position, _direction, MaxTravelDistance, 1 << layer);
-                //rigidbody.AddForce(_direction * KnockbackForce);
                 rigidbody.AddForceAtPosition(_direction * KnockbackForce, hit.point);
             }
         }
