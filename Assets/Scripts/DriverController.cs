@@ -20,8 +20,6 @@ namespace Assets.Scripts
 
         private Follower _cameraFollower;
 
-        private Vector3 _prevMousePos;
-
         private TriggerDetection _interactionRange;
 
         private bool _isAiming = false;
@@ -78,7 +76,6 @@ namespace Assets.Scripts
             var worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldMousePosition.z = 0;
             output = (worldMousePosition - transform.position).normalized;
-            _prevMousePos = Input.mousePosition;
             return output;
         }
 

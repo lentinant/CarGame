@@ -7,7 +7,7 @@ namespace Assets.Scripts
     public class BasicEnemyShooter : MonoBehaviour
     {
         private Collider2D _collider;
-        private List<ProjectileSource> _weapons;
+        private List<BasicWeapon> _weapons;
 
         public float MaxAttackDistance;
 
@@ -17,7 +17,7 @@ namespace Assets.Scripts
         {
             _collider = GetComponent<Collider2D>();
 
-            _weapons = transform.GetComponents<ProjectileSource>().ToList();
+            _weapons = transform.GetComponents<BasicWeapon>().ToList();
             _weapons.ForEach(p => p.Collider = _collider);
         }
 
@@ -36,7 +36,7 @@ namespace Assets.Scripts
                 var hit = Physics2D.Linecast(transform.position, target.position, 1 << LayerMask.NameToLayer("Obstacle"));
                 if (hit.collider != null)
                     return;
-                _weapons.ForEach(p => p.ShootProjectile(transform.up));
+                _weapons.ForEach(p => p.Shoot(transform.up));
             }
         }
     }

@@ -8,17 +8,14 @@ namespace Assets.Scripts
     {
         public float MaxRotationSpeed = 360;
 
-        private Vector3 _prevMousePos;
-
         private Collider2D _collider;
-        private List<ProjectileSource> _weapons;
+        private List<BasicWeapon> _weapons;
 
         void Awake()
         {
-            _prevMousePos = Input.mousePosition;
             _collider = transform.parent.GetComponent<Collider2D>();
 
-            _weapons = transform.GetComponents<ProjectileSource>().ToList();
+            _weapons = transform.GetComponents<BasicWeapon>().ToList();
             _weapons.ForEach(p => p.Collider = _collider);
         }
 
@@ -29,13 +26,13 @@ namespace Assets.Scripts
             if (Input.GetButton("Fire1"))
             {
                 if (_weapons.Count > 0)
-                    _weapons[0].ShootProjectile(transform.up);
+                    _weapons[0].Shoot(transform.up);
             }
 
             if (Input.GetButton("Fire2"))
             {
                 if (_weapons.Count > 1)
-                    _weapons[1].ShootProjectile(transform.up);
+                    _weapons[1].Shoot(transform.up);
             }
         }
 
@@ -57,7 +54,6 @@ namespace Assets.Scripts
             var worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldMousePosition.z = 0;
             output = (worldMousePosition - transform.position).normalized;
-            _prevMousePos = Input.mousePosition;
             return output;
         }
     }
