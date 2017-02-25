@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -7,13 +9,33 @@ namespace Assets.Scripts
         public float Acceleration;
         public float Steering;
 
+        public float CameraSize = 8;
+
         private Rigidbody2D _rigidbody;
         private float _vInput;
         private float _hInput;
 
+        private DriverController _driver;
+        private TurretController _turret;
+
+        private List<TriggerDetection> _landingZones;
+
+        private Follower _cameraFollower;
+        private IEnumerable<WheelRotation> _wheels;
+
         void Awake()
         {
             FollowOnSight.Target = transform;
+            _driver = FindObjectOfType<DriverController>();
+            _driver.gameObject.SetActive(false);
+            _turret = GetComponentInChildren<TurretController>();
+            _landingZones = GetComponentsInChildren<TriggerDetection>().ToList();
+            _cameraFollower = Camera.main.GetComponent<Follower>();
+
+            var interactible = GetComponent<Interactible>();
+            interactible.OnInteraction += ActivateCar;
+
+            _wheels = GetComponentsInChildren<WheelRotation>();
         }
 
         void Start()
@@ -23,16 +45,19 @@ namespace Assets.Scripts
 
         void Update()
         {
-            _hInput = -Input.GetAxis("Horizontal");
-            _vInput = Input.GetAxis("Vertical");
+            _hInput = -Input.GetAxisRaw("Horizontal");
+            _vInput = Input.GetAxisRaw("Vertical");
             //if (_vInput == 0)
             //  _vInput = Input.GetButton("GamepadBrake") ? -1 : 0;
+
+            if (Input.GetButtonDown("Use"))
+                TryLand();
         }
 
 
         void FixedUpdate()
         {
-            Vector2 speed = transform.up * (_vInput * Acceleration);
+            Vector2 speed = transform.up * (_vInput * Acceleration * _rigidbody.mass);
             _rigidbody.AddForce(speed);
 
             float direction = Vector2.Dot(_rigidbody.velocity, _rigidbody.GetRelativeVector(Vector2.up));
@@ -74,6 +99,37 @@ namespace Assets.Scripts
         {
             _vInput = vInput;
             _hInput = hInput;
+        }
+
+        public void ActivateCar(DriverController driver)
+        {
+            driver.DeactivateCharacter();
+            enabled = true;
+            _turret.enabled = true;
+
+            foreach (var wheel in _wheels)
+                wheel.enabled = true;
+
+            _cameraFollower.SwitchFollow(transform, CameraSize);
+        }
+
+        public void DeactivateCar()
+        {
+            enabled = false;
+            _turret.enabled = false;
+
+            foreach (var wheel in _wheels)
+                wheel.enabled = false;
+        }
+
+        private void TryLand()
+        {
+            var freeLandingZone = _landingZones.FirstOrDefault(z => !z.Objects.Any());
+            if(freeLandingZone != null)
+            {
+                DeactivateCar();
+                _driver.ActivateCharacter(freeLandingZone.transform.position);
+            }
         }
     } 
 }

@@ -6,6 +6,8 @@ namespace Assets.Scripts
 {
     public class TurretController : MonoBehaviour
     {
+        public float MaxRotationSpeed = 360;
+
         private Vector3 _prevMousePos;
 
         private Collider2D _collider;
@@ -40,11 +42,9 @@ namespace Assets.Scripts
         private void UpdateRotation()
         {
             var newDirection = GetRotationVector();
-            if(newDirection.magnitude > 0)
-            {
-                var rotation = RotationUtils.DirectionVectorToRotationQuaternion2D(newDirection);
-                transform.rotation = rotation;
-            }
+            var targetRotation = RotationUtils.DirectionVectorToRotationQuaternion2D(newDirection);
+            var newRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, MaxRotationSpeed * Time.deltaTime);
+            transform.rotation = newRotation;
         }
 
         private Vector2 GetRotationVector()
@@ -53,11 +53,6 @@ namespace Assets.Scripts
             var hInput = Input.GetAxis("AimingHorizontal");
 
             Vector2 output = new Vector2(hInput, vInput).normalized;
-            if (output.magnitude > 0)
-                return output;
-
-            if (Input.mousePosition == _prevMousePos)
-                return output;
 
             var worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldMousePosition.z = 0;
