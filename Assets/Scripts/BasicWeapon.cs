@@ -13,7 +13,7 @@ namespace Assets.Scripts
 
         private float _nextShootTime;
 
-        public void CreateSingleProjectile(Vector3 direction)
+        public virtual void CreateSingleProjectile(Vector3 direction)
         {
             var projectile = (Transform)Instantiate(ProjectilePrefab, Muzzle.position + new Vector3(0, 0, -1), transform.rotation);
             var projectileComponent = projectile.GetComponent<Projectile>();
