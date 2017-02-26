@@ -15,13 +15,13 @@ TagManager:
   - 
   - 
   - Obstacle
-  - Projectile
+  - CharacterProjectile
   - NonInteractiveTrigger
-  - 
-  - 
-  - 
-  - 
-  - 
+  - EnemyProjectile
+  - Enemy
+  - Character
+  - Car
+  - CarProjectile
   - 
   - 
   - 

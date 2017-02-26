@@ -24,10 +24,10 @@ GameObject:
   - component: {fileID: 50394853081861484}
   - component: {fileID: 114560961785085460}
   - component: {fileID: 60400406059850920}
-  - component: {fileID: 114759886482568352}
-  - component: {fileID: 114868780790516858}
   - component: {fileID: 114316052071765200}
-  m_Layer: 0
+  - component: {fileID: 114214374488286782}
+  - component: {fileID: 114871304452685440}
+  m_Layer: 12
   m_Name: enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -148,6 +148,27 @@ PolygonCollider2D:
       - {x: 0.26, y: -0.089999996}
       - {x: 0.26999998, y: -0.06}
       - {x: 0.26999998, y: 0.12}
+--- !u!114 &114214374488286782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452110732574068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b919c10053d43e4e964517b82403ad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Right weapon
+  ProjectilePrefab: {fileID: 4562312184310224, guid: daea8556381bc744b883c01bbb2c0955,
+    type: 2}
+  Muzzle: {fileID: 4752246053513126}
+  ShootCooldown: 1
+  IgnoreTags:
+  - Enemy
+  ProjectileSpeed: 800
+  Damage: 2
+  ThrowbackPower: 10
 --- !u!114 &114316052071765200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -188,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 20
---- !u!114 &114759886482568352
+--- !u!114 &114871304452685440
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -196,30 +217,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1452110732574068}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d7d4d3af7e7934eb654da210165af5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Right weapon
-  ProjectilePrefab: {fileID: 4562312184310224, guid: daea8556381bc744b883c01bbb2c0955,
-    type: 2}
-  Muzzle: {fileID: 4752246053513126}
-  ShootCooldown: 0.7
---- !u!114 &114868780790516858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1452110732574068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d7d4d3af7e7934eb654da210165af5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b919c10053d43e4e964517b82403ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Left weapon
   ProjectilePrefab: {fileID: 4562312184310224, guid: daea8556381bc744b883c01bbb2c0955,
     type: 2}
   Muzzle: {fileID: 4815564311601728}
-  ShootCooldown: 0.7
+  ShootCooldown: 1
+  IgnoreTags: []
+  ProjectileSpeed: 800
+  Damage: 2
+  ThrowbackPower: 10
 --- !u!212 &212183187569808350
 SpriteRenderer:
   m_ObjectHideFlags: 1

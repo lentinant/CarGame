@@ -792,16 +792,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 184396030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d7d4d3af7e7934eb654da210165af5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b919c10053d43e4e964517b82403ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 526f636b6574204c61756e63686572
+  Name: Rocket launcher
   ProjectilePrefab: {fileID: 4494145249457280, guid: 409a5e43a88ac5e41ab99b95654f00c3,
     type: 2}
   Muzzle: {fileID: 1521129247}
   ShootCooldown: 2
-  _nextShootTime: 0
-  <Collider>k__BackingField: {fileID: 0}
+  IgnoreTags: []
+  ProjectileSpeed: 800
+  Damage: 20
+  ThrowbackPower: 30
 --- !u!114 &184396035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,16 +812,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 184396030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d7d4d3af7e7934eb654da210165af5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b919c10053d43e4e964517b82403ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 4d696e6967756e
+  Name: Minigun
   ProjectilePrefab: {fileID: 4562312184310224, guid: fca9242e410c58343a0884e4f6c77c19,
     type: 2}
   Muzzle: {fileID: 1521129247}
   ShootCooldown: 0.1
-  _nextShootTime: 0
-  <Collider>k__BackingField: {fileID: 0}
+  IgnoreTags: []
+  ProjectileSpeed: 1200
+  Damage: 2
+  ThrowbackPower: 20
 --- !u!1 &273294774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1068,7 @@ GameObject:
   - component: {fileID: 507442648}
   - component: {fileID: 507442649}
   - component: {fileID: 507442650}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2629,7 +2633,7 @@ GameObject:
   - component: {fileID: 1838868832}
   - component: {fileID: 1838868831}
   - component: {fileID: 1838868834}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}

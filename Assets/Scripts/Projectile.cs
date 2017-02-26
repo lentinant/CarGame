@@ -1,16 +1,10 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class Projectile : MonoBehaviour
     {
-        public float Speed;
         public float MaxTravelDistance = 1000;
-        public int Damage;
-        public float KnockbackForce;
-
-        public string[] IgnoreTags;
 
         public float FullTrailLength;
 
@@ -23,6 +17,8 @@ namespace Assets.Scripts
 
         private Rigidbody2D _rigidbody;
         private Vector3 _direction;
+        private int _damage;
+        private float _throwbackPower;
 
         void Awake()
         {
@@ -34,15 +30,17 @@ namespace Assets.Scripts
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        public void Init(Vector2 direction, Collider2D parentCollider)
+        public void Init(Vector2 direction, Collider2D parentCollider, int damage, float projectileSpeed, float throwbackPower)
         {
             _rigidbody = GetComponent<Rigidbody2D>();
 
-            _rigidbody.AddForce(direction * Speed);
+            _direction = direction;
+            _damage = damage;
+            _throwbackPower = throwbackPower;
+
+            _rigidbody.AddForce(direction * projectileSpeed);
             _prevPosition = transform.position;
             _initialized = true;
-
-            _direction = direction;
 
             var col = GetComponent<Collider2D>();
             Physics2D.IgnoreCollision(col, parentCollider, true);
@@ -50,26 +48,21 @@ namespace Assets.Scripts
 
         void OnTriggerEnter2D(Collider2D coll)
         {
-            if (IgnoreTags.Contains(coll.transform.tag))
-            {
-                return;
-            }
-
             Destroy(gameObject);
 
             var damageTaker = coll.transform.GetComponent<DamageTaker>();
 
-            if (damageTaker != null && damageTaker.TakeDamage(Damage))
+            if (damageTaker != null && damageTaker.TakeDamage(_damage))
             {
                 return;
             }
-            
+
             var rigidbody = coll.transform.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
                 var layer = coll.gameObject.layer;
                 var hit = Physics2D.Raycast(transform.position, _direction, MaxTravelDistance, 1 << layer);
-                rigidbody.AddForceAtPosition(_direction * KnockbackForce, hit.point);
+                rigidbody.AddForceAtPosition(_direction * _throwbackPower, hit.point);
             }
         }
 
