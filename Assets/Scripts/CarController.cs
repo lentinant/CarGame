@@ -22,6 +22,7 @@ namespace Assets.Scripts
 
         private Follower _cameraFollower;
         private IEnumerable<WheelRotation> _wheels;
+        private SwitchManager _switchManager;
 
         void Awake()
         {
@@ -36,6 +37,8 @@ namespace Assets.Scripts
             interactible.OnInteraction += ActivateCar;
 
             _wheels = GetComponentsInChildren<WheelRotation>();
+
+            _switchManager = FindObjectOfType<SwitchManager>();
         }
 
         void Start()
@@ -103,6 +106,8 @@ namespace Assets.Scripts
 
         public void ActivateCar(DriverController driver)
         {
+            _switchManager.NotifySwitch(false);
+
             driver.DeactivateCharacter();
             enabled = true;
             _turret.enabled = true;

@@ -23,11 +23,13 @@ namespace Assets.Scripts
         private TriggerDetection _interactionRange;
 
         private bool _isAiming = false;
+        private SwitchManager _switchManager;
 
         void Awake()
         {
             _cameraFollower = Camera.main.GetComponent<Follower>();
             _interactionRange = GetComponentInChildren<TriggerDetection>();
+            _switchManager = FindObjectOfType<SwitchManager>();
         }
 
         void Update()
@@ -81,6 +83,7 @@ namespace Assets.Scripts
 
         public void ActivateCharacter(Vector2 position)
         {
+            _switchManager.NotifySwitch(true);
             transform.position = position;
             gameObject.SetActive(true);
             _cameraFollower.SwitchFollow(transform, CommonCameraSize);
