@@ -19,9 +19,9 @@ namespace Assets.Scripts
 
         private float _nextShootTime;
 
-        public virtual void CreateSingleProjectile(Vector3 direction)
+        protected virtual void CreateSingleProjectile(Vector3 direction)
         {
-            var projectile = (Transform)Instantiate(ProjectilePrefab, Muzzle.position + new Vector3(0, 0, -1), transform.rotation);
+            var projectile = (Transform)Instantiate(ProjectilePrefab, Muzzle.position + new Vector3(0, 0, -1), Quaternion.identity);
             var projectileComponent = projectile.GetComponent<Projectile>();
             projectileComponent.Init(direction, Collider, Damage, ProjectileSpeed, ThrowbackPower);
         }

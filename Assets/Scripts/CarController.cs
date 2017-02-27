@@ -120,6 +120,7 @@ namespace Assets.Scripts
 
         public void DeactivateCar()
         {
+            _switchManager.NotifySwitch(true);
             enabled = false;
             _turret.enabled = false;
 

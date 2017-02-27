@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Assets.Scripts
 {
@@ -25,11 +26,14 @@ namespace Assets.Scripts
         private bool _isAiming = false;
         private SwitchManager _switchManager;
 
+        private List<BasicWeapon> _weapons = new List<BasicWeapon>();
+
         void Awake()
         {
             _cameraFollower = Camera.main.GetComponent<Follower>();
             _interactionRange = GetComponentInChildren<TriggerDetection>();
             _switchManager = FindObjectOfType<SwitchManager>();
+            _weapons = GetComponents<BasicWeapon>().ToList();
         }
 
         void Update()
@@ -57,6 +61,11 @@ namespace Assets.Scripts
             {
                 Interact();
             }
+
+            if(Input.GetButtonDown("Fire1") && _isAiming)
+            {
+                _weapons[0].Shoot(transform.up);
+            }
         }
 
         private void UpdateRotation(Vector2 movementDirection)
@@ -83,7 +92,6 @@ namespace Assets.Scripts
 
         public void ActivateCharacter(Vector2 position)
         {
-            _switchManager.NotifySwitch(true);
             transform.position = position;
             gameObject.SetActive(true);
             _cameraFollower.SwitchFollow(transform, CommonCameraSize);

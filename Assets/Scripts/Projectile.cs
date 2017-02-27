@@ -38,6 +38,8 @@ namespace Assets.Scripts
             _damage = damage;
             _throwbackPower = throwbackPower;
 
+            transform.rotation = RotationUtils.DirectionVectorToRotationQuaternion2D(direction);
+
             _rigidbody.AddForce(direction * projectileSpeed);
             _prevPosition = transform.position;
             _initialized = true;

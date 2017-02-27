@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Interactible.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\RotationUtils.cs" />
+    <Compile Include="Assets\Scripts\ShotgunWeapon.cs" />
     <Compile Include="Assets\Scripts\SwitchManager.cs" />
     <Compile Include="Assets\Scripts\TestRestart.cs" />
     <Compile Include="Assets\Scripts\TriggerDetection.cs" />
